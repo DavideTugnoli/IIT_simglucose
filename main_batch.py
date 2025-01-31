@@ -32,7 +32,6 @@ tasks = [
     ['python','-m', 'main_MLP',
         '--modified', 'True',
         '--pred_horizon','45',
-        '--neuro_mapping','train_config/MLP_parallel.nm',
         '--seed', '56',
         '--date_experiment', '2025-01-31',
         '--student_model', 'parallel'
