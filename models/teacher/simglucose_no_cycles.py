@@ -1,9 +1,9 @@
-## TEACHER MODEL (WITH CYCLES)
+## TEACHER MODEL (WITHOUT CYCLES)
 from datetime import datetime, timedelta
 import torch
 from torch import nn
 import numpy as np
-from utils.t1dpatient import T1DPatient
+from utils.t1dpatient_no_cycles import T1DPatient
 from utils.env import T1DSimEnv
 from utils.controller import BBController
 from utils.pump import InsulinPump

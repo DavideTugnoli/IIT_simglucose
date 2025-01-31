@@ -4,61 +4,39 @@ from datetime import datetime
 
 # List of tasks. Each task is a list where the first element is the script, and the following elements are the arguments for that script.
 tasks = [
-    # MLP Tree
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '87', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '87', '--date_experiment', '2024-05-30'],
-
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '5784', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '5784', '--date_experiment', '2024-05-30'],
-
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '8027', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '8027', '--date_experiment', '2024-05-30'],
-
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '854', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--seed', '854', '--date_experiment', '2024-05-30'],
-
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '6962', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '6962', '--date_experiment', '2024-05-30'],
-
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','45', '--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','60', '--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','30', '--neuro_mapping','train_config/MLP_tree.nm','--seed', '796', '--date_experiment', '2024-05-30'],
-    ['python','-m', 'main_MLP_tree', '--pred_horizon','120', '--seed', '796', '--date_experiment', '2024-05-30'],
-
+    # MLP Parallel CYCLES IIT
+    ['python','-m', 'main_MLP',
+        '--pred_horizon','45',
+        '--neuro_mapping','train_config/MLP_parallel.nm',
+        '--seed', '56', 
+        '--date_experiment', '2025-01-31',
+        '--student_model', 'parallel'
+    ],
+    # MLP Parallel NO CYCLES IIT
+    ['python','-m', 'main_MLP',
+        '--modified', 'True',
+        '--pred_horizon','45',
+        '--neuro_mapping','train_config/MLP_parallel.nm',
+        '--seed', '56',
+        '--date_experiment', '2025-01-31',
+        '--student_model', 'parallel'
+    ],
+    # MLP Parallel CYCLES NO IIT
+    ['python','-m','main_MLP',
+        '--pred_horizon','45',
+        '--seed', '56', 
+        '--date_experiment', '2025-01-31',
+        '--student_model', 'parallel'
+    ],
+    # MLP Parallel NO CYCLES NO IIT
+    ['python','-m', 'main_MLP',
+        '--modified', 'True',
+        '--pred_horizon','45',
+        '--neuro_mapping','train_config/MLP_parallel.nm',
+        '--seed', '56',
+        '--date_experiment', '2025-01-31',
+        '--student_model', 'parallel'
+    ]
 ]
 
 # Function to run a single task
@@ -75,7 +53,7 @@ def run_task(task):
 if __name__ == '__main__':
 
     # Number of tasks to run simultaneously
-    num_workers = 4
+    num_workers = 2
 
     # Using ProcessPoolExecutor to run tasks concurrently
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
