@@ -4,37 +4,49 @@ from datetime import datetime
 
 # List of tasks. Each task is a list where the first element is the script, and the following elements are the arguments for that script.
 tasks = [
-    # MLP Parallel CYCLES IIT
+    # MLP tree CYCLES IIT
     ['python','-m', 'main_MLP',
-        '--pred_horizon','45',
-        '--neuro_mapping','train_config/MLP_parallel.nm',
-        '--seed', '56', 
-        '--date_experiment', '2025-01-31',
-        '--student_model', 'parallel'
+        '--pred_horizon','60',
+        '--neuro_mapping','train_config/MLP_tree.nm',
+        '--seed', '56',
+        '--student_model', 'tree'
     ],
-    # MLP Parallel NO CYCLES IIT
+    # MLP tree NO CYCLES IIT
     ['python','-m', 'main_MLP',
         '--modified', 'True',
-        '--pred_horizon','45',
-        '--neuro_mapping','train_config/MLP_parallel.nm',
+        '--pred_horizon','60',
+        '--neuro_mapping','train_config/MLP_tree.nm',
         '--seed', '56',
-        '--date_experiment', '2025-01-31',
-        '--student_model', 'parallel'
+        '--student_model', 'tree'
     ],
-    # MLP Parallel CYCLES NO IIT
+    # MLP tree NO IIT
     ['python','-m','main_MLP',
-        '--pred_horizon','45',
-        '--seed', '56', 
-        '--date_experiment', '2025-01-31',
-        '--student_model', 'parallel'
+        '--pred_horizon','60',
+        '--seed', '56',
+        '--student_model', 'tree'
     ],
-    # MLP Parallel NO CYCLES NO IIT
+
+    # MLP tree CYCLES IIT
+    ['python','-m', 'main_MLP',
+        '--pred_horizon','120',
+        '--neuro_mapping','train_config/MLP_tree.nm',
+        '--seed', '56',
+        '--student_model', 'tree'
+    ],
+    # MLP tree NO CYCLES IIT
     ['python','-m', 'main_MLP',
         '--modified', 'True',
-        '--pred_horizon','45',
+        '--pred_horizon','120',
+        '--neuro_mapping','train_config/MLP_tree.nm',
         '--seed', '56',
-        '--date_experiment', '2025-01-31',
-        '--student_model', 'parallel'
+        '--student_model', 'tree'
+    ],
+    # MLP tree NO IIT
+    ['python','-m', 'main_MLP',
+        '--modified', 'True',
+        '--pred_horizon','120',
+        '--seed', '56',
+        '--student_model', 'tree'
     ]
 ]
 
