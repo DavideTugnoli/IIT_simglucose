@@ -1,4 +1,4 @@
-## TEACHER MODEL
+## TEACHER MODEL (WITH CYCLES)
 from datetime import datetime, timedelta
 import torch
 from torch import nn

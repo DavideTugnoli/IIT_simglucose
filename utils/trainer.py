@@ -133,10 +133,10 @@ class Trainer:
         logger.info("Starting training")
         self.last_log = time.time()
         self.teacher.eval()
-        self.student.train()
         self.optimizer.zero_grad()
 
         for n in range(self.params.n_epoch):
+            self.student.train()
             self.epoch = n
             logger.info(f"--- Starting epoch {self.epoch}/{self.params.n_epoch-1}")
             iter_bar = tqdm(self.dataloader, desc="-Iter")
@@ -184,13 +184,16 @@ class Trainer:
                 )
             iter_bar.close()
             logger.info(f"--- Ending epoch {self.epoch}/{self.params.n_epoch-1}")
-            should_stop = self.early_stopper.early_stop(self.total_loss_epoch/self.n_iter, n)
+            self.student.eval()
+            if self.neuro_mapping:
+                self.teacher.eval()
+            beh_mse, _ = self.beh_loss(self.val_dataloader)
+            should_stop = self.early_stopper.early_stop(beh_mse, n)
             print(f"Epoch {n} has {self.early_stopper.counter}/{self.params.patience} patience")
             if should_stop:
                 self.end_epoch(should_stop=should_stop)
                 break
             self.end_epoch(should_stop=should_stop)
-
         # Save the training loss values
         with open(os.path.join(self.dump_path,'train_loss.pkl'), 'wb') as file:
             dump(self.track_loss, file)
