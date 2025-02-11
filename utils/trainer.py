@@ -765,4 +765,4 @@ class Trainer:
 
         if mode=="test":
             print(self.df)
-            # self.df.to_excel(os.path.join(self.dump_path, "output.xlsx"), index=False)
+            self.df.to_excel(os.path.join(self.dump_path, "output.xlsx"), index=False)
