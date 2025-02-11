@@ -20,6 +20,8 @@ def prepare_trainer(args):
     # ARGS #
     set_seed(args)
 
+    torch.set_num_threads(os.cpu_count())
+
     if not os.path.exists(args.dump_path):
         os.makedirs(args.dump_path)
     logger.info(f"Experiment will be dumped and logged in {args.dump_path}")

@@ -176,7 +176,7 @@ def setup_loaders(args):
     train_loader = DataLoader(
         GlucoseDataset(train_data, train_ids),
         shuffle=True,
-        pin_memory=True,
+        pin_memory=False,
         num_workers=num_workers,
         batch_size=batch_size
     )
@@ -184,7 +184,7 @@ def setup_loaders(args):
     val_loader = DataLoader(
         GlucoseDataset(val_data, val_ids),
         shuffle=True,
-        pin_memory=True,
+        pin_memory=False,
         num_workers=num_workers,
         batch_size=batch_size
     )
@@ -192,7 +192,7 @@ def setup_loaders(args):
     test_loader = DataLoader(
         GlucoseDataset(test_data, test_ids),
         shuffle=True,
-        pin_memory=True,
+        pin_memory=False,
         num_workers=num_workers,
         batch_size=batch_size
     )

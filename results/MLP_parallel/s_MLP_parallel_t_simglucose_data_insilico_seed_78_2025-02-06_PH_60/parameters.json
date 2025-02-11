@@ -1,0 +1,20 @@
+{
+    "modified": false,
+    "student_model": "parallel",
+    "seed": 78,
+    "force": false,
+    "neuro_mapping": "train_config/MLP_parallel.nm",
+    "alpha_ce": 0.25,
+    "alpha_causal": 0.75,
+    "n_epoch": 300,
+    "gradient_accumulation_steps": 20,
+    "batch_train": 20,
+    "batch_val": 20,
+    "input_size": 20,
+    "output_size": 64,
+    "patience": 20,
+    "pred_horizon": 60,
+    "date_experiment": "2025-02-06",
+    "run_name": "s_MLP_parallel_t_simglucose_data_insilico_seed_78_2025-02-06_PH_60",
+    "dump_path": "results\\MLP_parallel\\s_MLP_parallel_t_simglucose_data_insilico_seed_78_2025-02-06_PH_60"
+}
