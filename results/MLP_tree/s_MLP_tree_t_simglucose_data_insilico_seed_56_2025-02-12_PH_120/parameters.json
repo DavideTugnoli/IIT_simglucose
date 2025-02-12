@@ -14,7 +14,7 @@
     "output_size": 64,
     "patience": 20,
     "pred_horizon": 120,
-    "date_experiment": "2025-02-11",
-    "run_name": "s_MLP_tree_t_simglucose_data_insilico_seed_56_2025-02-11_PH_120",
-    "dump_path": "results\\MLP_tree\\s_MLP_tree_t_simglucose_data_insilico_seed_56_2025-02-11_PH_120"
+    "date_experiment": "2025-02-12",
+    "run_name": "s_MLP_tree_t_simglucose_data_insilico_seed_56_2025-02-12_PH_120",
+    "dump_path": "results\\MLP_tree\\s_MLP_tree_t_simglucose_data_insilico_seed_56_2025-02-12_PH_120"
 }
