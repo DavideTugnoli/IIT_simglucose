@@ -109,7 +109,14 @@ class Simglucose(nn.Module):
                            interchanged_variables=interchanged_variables,
                            interchanged_activations=interchanged_activations)
 
-        teacher_ouputs["hidden_states"] = np.transpose(x)[:,-1] if not self.timeseries_iit else np.transpose(x)[:,10:].reshape(-1)
+        if not self.timeseries_iit:
+            # last state (13,)
+            teacher_ouputs["hidden_states"] = x[-1]
+        else:
+            # x is np.array(state_hist) where state_hist[t] = state at minute t
+            times = list(range(30, 30 + self.pred_horizon, 3))  # K points
+            x_sel = x[times, :]  # (K, 13)
+            teacher_ouputs["hidden_states"] = x_sel.reshape(-1)  # time-major: (t0 vars, t1 vars, ...)
         
         teacher_ouputs["outputs"]=torch.tensor(output*0.01, dtype=torch.float32)
 

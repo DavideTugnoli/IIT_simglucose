@@ -138,7 +138,7 @@ class T1DPatient(Patient):
             dict_mapping = {}
             start = 0
             stop = 13
-            for last_minute in range(30, 30+pred_horizon+1, 3):
+            for last_minute in range(30, 30 + pred_horizon, 3):
                 dict_mapping[str(last_minute)] = range(start, stop)
                 start = stop
                 stop = stop+13
@@ -342,6 +342,9 @@ class T1DPatient(Patient):
 
         self._odesolver = ode(self.model).set_integrator('dopri5')
         self._odesolver.set_initial_value(self.init_state, self.t0)
+
+        self.state_hist = []
+        self.state_hist.append(self.state.copy())
 
         self._last_action = Action(CHO=0, insulin=0)
         self.is_eating = False

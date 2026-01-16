@@ -12,6 +12,7 @@ from models.student import MLP_tree as student_tree
 from models.student import MLP_tree_depth as student_tree_depth
 from models.student import MLP_tree_joint as student_tree_joint
 from models.student import MLP_scaled as student_scaled
+from models.student import MLP_scaled_tied as student_scaled_tied
 from utils.counterfactual_utils import set_seed, logger
 from utils.trainer import Trainer
 
@@ -42,13 +43,21 @@ def prepare_trainer(args):
     elif args.student_model == "scaled":
         # EX: Pred horizon 30 with a time step of 3 minutes represent 10 integrations in the simulator --> 1 initial block + 9 scaled
         student_model = student_scaled.MLP_scaled(args.input_size, args.output_size, args.pred_horizon/3)
+    elif args.student_model == "scaled_tied":
+        student_model = student_scaled_tied.MLP_scaled_tied(
+            args.input_size, args.output_size, args.pred_horizon / 3
+        )
     # student = student_model.to(f"cuda:0", non_blocking=True)
     logger.info("Student loaded.")
 
     if args.modified:
-        teacher_model = teacher_no_cycles.Simglucose(args.pred_horizon)
+        teacher_model = teacher_no_cycles.Simglucose(
+            args.pred_horizon, timeseries_iit=args.timeseries_iit
+        )
     else:
-        teacher_model = teacher.Simglucose(args.pred_horizon)
+        teacher_model = teacher.Simglucose(
+            args.pred_horizon, timeseries_iit=args.timeseries_iit
+        )
     # teacher = teacher_model.to(f"cuda:0", non_blocking=True)
     logger.info("Teacher loaded.")
 
@@ -82,7 +91,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--student_model",
         type=str,
-        choices=["parallel", "tree", "tree_depth", "tree_joint", "scaled"],
+        choices=["parallel", "tree", "tree_depth", "tree_joint", "scaled", "scaled_tied"],
         help="Prediction horizon."
     )
     parser.add_argument(
@@ -158,6 +167,7 @@ if __name__ == "__main__":
         choices=[30, 45, 60, 120],
         help="Prediction horizon."
     )
+    parser.add_argument("--timeseries_iit", action="store_true")
     parser.add_argument(
         "--date_experiment",
         type=str,
