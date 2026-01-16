@@ -54,16 +54,7 @@ class Simglucose(nn.Module):
         controller.reset()
         obs, reward, done, info = env.reset()
 
-        if self.pred_horizon == 30:
-            sim_time = timedelta(hours=1)
-        elif self.pred_horizon == 45:
-            sim_time = timedelta(hours=1, minutes=15)
-        elif self.pred_horizon == 60:
-            sim_time = timedelta(hours=1, minutes=30)
-        elif self.pred_horizon == 120:
-            sim_time = timedelta(hours=2)
-        else:
-            sim_time=0
+        sim_time = timedelta(minutes=30 + self.pred_horizon)
 
         while env.time < scenario.start_time + sim_time:
             action = controller.policy(obs, reward, done, **info)

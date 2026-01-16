@@ -54,11 +54,11 @@ python main_batch.py
 #### Example:
 To train the **MLP Tree 256** model with **IIT** and seed **256**, run:
 ```bash
-python main_MLP --model tree --neuro_mapping train_config/MLP_tree.nm --seed 56 --pred_horizon 30
+python main_MLP --student_model tree --neuro_mapping train_config/MLP_tree.nm --seed 56 --pred_horizon 30
 ```
 To train the **MLP Tree** model with **Standard** and a hidden size of **256**, run:
 ```bash
-python main_MLP --model tree --seed 56 --pred_horizon 30
+python main_MLP --student_model tree --seed 56 --pred_horizon 30
 ```
 ## Experiments and Results
 

@@ -167,7 +167,7 @@ class T1DPatient(Patient):
             try:
                 t_next = self._odesolver.t + self.sample_time
                 self._odesolver.integrate(t_next)
-                self.state_hist.append(self.state)
+                self.state_hist.append(self.state.copy())
             except Exception as e:
                 logger.info(f'ODE solver failed!!: {e}')
                 logger.info(self._odesolver.y)
