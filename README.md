@@ -54,11 +54,11 @@ python main_batch.py
 #### Example:
 To train the **MLP Tree 256** model with **IIT** and seed **256**, run:
 ```bash
-python main_MLP --student_model tree --neuro_mapping train_config/MLP_tree.nm --seed 56 --pred_horizon 30
+python main_MLP.py --student_model tree --neuro_mapping train_config/MLP_tree.nm --seed 56 --pred_horizon 30
 ```
 To train the **MLP Tree** model with **Standard** and a hidden size of **256**, run:
 ```bash
-python main_MLP --student_model tree --seed 56 --pred_horizon 30
+python main_MLP.py --student_model tree --seed 56 --pred_horizon 30
 ```
 ## Experiments and Results
 
@@ -88,5 +88,4 @@ This study demonstrates the potential of **Interchange Intervention Training** i
 - Jinyu Xie. Simglucose v0.2.1 (2018) [Online]. Available: https://github.com/jxx123/simglucose. Accessed on: 02-14-2025.
 - Geiger et al. (2021). Inducing Causal Structure for Interpretable Neural Networks.
 - Liu et al. (2023). Machine learning models for blood glucose level prediction in patients with diabetes mellitus: Systematic review and network meta-analysis.
-
 

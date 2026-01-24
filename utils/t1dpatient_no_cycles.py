@@ -143,12 +143,14 @@ class T1DPatient(Patient):
                 start = stop
                 stop = stop+13
             assert interchanged_variables != None
+            target_minute = int(self._odesolver.t) + 1
+            target_key = str(target_minute)
             for param in variable_names:
-                if str(int(self._odesolver.t)) in dict_mapping and param in dict_mapping[str(int(self._odesolver.t))]:
+                if target_key in dict_mapping and param in dict_mapping[target_key]:
                     interchanged_activations = interchanged_variables[0]
                     interchanged_state = self.state
                     save_state = self.state.copy()
-                    index_param = dict_mapping[str(int(self._odesolver.t))].index(param)
+                    index_param = dict_mapping[target_key].index(param)
                     interchanged_state[index_param] = interchanged_activations
                     self._odesolver.set_initial_value(interchanged_state, self._odesolver.t)
         elif variable_names != None and int(self._odesolver.t)==30+pred_horizon-1 and not timeseries_iit:
@@ -349,4 +351,3 @@ class T1DPatient(Patient):
         self._last_action = Action(CHO=0, insulin=0)
         self.is_eating = False
         self.planned_meal = 0
-
