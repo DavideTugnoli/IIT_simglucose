@@ -13,6 +13,10 @@ from tqdm import tqdm
 from transformers import get_linear_schedule_with_warmup
 import warnings
 warnings.filterwarnings('error')  # "error", "ignore", "always", "default", "module" or "once"
+import matplotlib
+if os.environ.get("MPLBACKEND") is None and os.environ.get("DISPLAY") is None:
+    # Force non-interactive backend on headless nodes.
+    matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from dataset.glucosedataset import GlucoseDataset
 from .counterfactual_utils import deserialize_variable_name, parse_variable_name, get_activation_at, logger

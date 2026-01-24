@@ -77,9 +77,11 @@ Edgar Guevara Codina
 codina@REMOVETHIScactus.iico.uaslp.mx
 March 29 2013
 '''
-
-
-
+import os
+import matplotlib
+if os.environ.get("MPLBACKEND") is None and os.environ.get("DISPLAY") is None:
+    # Force non-interactive backend on headless nodes.
+    matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
