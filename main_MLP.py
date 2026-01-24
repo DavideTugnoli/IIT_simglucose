@@ -35,11 +35,11 @@ def prepare_trainer(args):
     if args.student_model == "parallel":
         student_model = student.MLP()
     elif args.student_model == "tree":
-        student_model = student_tree.MLP()
+        student_model = student_tree.MLP(hidden_size=args.hidden_size)
     elif args.student_model == "tree_depth":
-        student_model = student_tree_depth.MLP()
+        student_model = student_tree_depth.MLP(hidden_size=args.hidden_size)
     elif  args.student_model == "tree_joint":
-        student_model = student_tree_joint.MLP()
+        student_model = student_tree_joint.MLP(hidden_size=args.hidden_size)
     elif args.student_model == "scaled":
         # EX: Pred horizon 30 with a time step of 3 minutes represent 10 integrations in the simulator --> 1 initial block + 9 scaled
         student_model = student_scaled.MLP_scaled(args.input_size, args.output_size, args.pred_horizon/3)
@@ -156,6 +156,12 @@ if __name__ == "__main__":
         help="Hidden size",
     )
     parser.add_argument(
+        "--hidden_size",
+        type=int,
+        default=256,
+        help="Hidden size for tree-based models (tree/tree_depth/tree_joint).",
+    )
+    parser.add_argument(
         "--patience",
         type=int,
         default=20,
@@ -174,6 +180,12 @@ if __name__ == "__main__":
         default=datetime.today().strftime('%Y-%m-%d'),
         help="Date of the experiemnt in format YYYY-MM-DD."
     )
+    parser.add_argument(
+        "--results_root",
+        type=str,
+        default="results",
+        help="Root directory for experiment outputs."
+    )
     
     args = parser.parse_args()
     
@@ -183,7 +195,7 @@ if __name__ == "__main__":
     else:
         run_name = f"s_MLP_{args.student_model}_data_insilico_seed_{args.seed}_{args.date_experiment}_PH_{str(args.pred_horizon)}"
     args.run_name = run_name
-    args.dump_path = os.path.join("results","MLP_"+args.student_model)
+    args.dump_path = os.path.join(args.results_root, "MLP_"+args.student_model)
     if args.modified:
         args.dump_path = os.path.join(args.dump_path,"no_cycles" )
     args.dump_path = os.path.join(args.dump_path, args.run_name)

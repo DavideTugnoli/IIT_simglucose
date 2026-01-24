@@ -3,11 +3,11 @@ import torch.nn as nn
 from utils.counterfactual_utils import interchange_hook
 
 class MLP(nn.Module):
-    def __init__(self):
+    def __init__(self, hidden_size: int = 256):
         super(MLP, self).__init__()
         
         input_size = 20
-        num_neurons = 256
+        num_neurons = int(hidden_size)
         output_size = 1
         # X_1
         self.X_1 = nn.Sequential(
