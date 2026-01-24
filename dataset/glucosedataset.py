@@ -167,7 +167,11 @@ def setup_loaders(args):
     torch.manual_seed(args.seed)
     random.seed(args.seed)
 
-    num_workers = (4 * AVAIL_GPUS) if (AVAIL_GPUS > 0) else AVAIL_CPUS
+    requested_workers = int(getattr(args, "num_workers", 0) or 0)
+    if requested_workers > 0:
+        num_workers = min(requested_workers, AVAIL_CPUS)
+    else:
+        num_workers = (4 * AVAIL_GPUS) if (AVAIL_GPUS > 0) else min(AVAIL_CPUS, 8)
     batch_size = 2 # DUAL INPUT!
 
     train_data, train_ids, val_data, val_ids, test_data, test_ids = create_dataset(vparams=vparams, vparams_test=vparams_test)

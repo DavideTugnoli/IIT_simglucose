@@ -181,10 +181,21 @@ if __name__ == "__main__":
         help="Date of the experiemnt in format YYYY-MM-DD."
     )
     parser.add_argument(
+        "--lint_log",
+        action="store_true",
+        help="Log per-step LINT values to temporal_lint_log.csv.",
+    )
+    parser.add_argument(
         "--results_root",
         type=str,
         default="results",
         help="Root directory for experiment outputs."
+    )
+    parser.add_argument(
+        "--num_workers",
+        type=int,
+        default=int(os.environ.get("SLURM_CPUS_PER_TASK", "8")),
+        help="DataLoader workers (capped by available CPUs).",
     )
     
     args = parser.parse_args()
