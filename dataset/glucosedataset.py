@@ -23,7 +23,6 @@ CONTROL_QUEST_TEST = os.path.join('data','insilico_quest.csv')
 quest_test = pd.read_csv(CONTROL_QUEST_TEST)
 
 PATIENT_IDS = [pat_name for pat_name in quest['Name']]
-random.shuffle(PATIENT_IDS)
 PATIENT_IDS_TEST = [pat_name for pat_name in quest_test['Name']]
 
 def get_init_state(pat_name, vparams):
@@ -84,11 +83,11 @@ class GlucoseDataset(Dataset):
         output = self.data[index,-1]
         return input_sequence, output, self.pat_ids[index]
 
-def create_dataset(vparams, vparams_test):
+def create_dataset(vparams, vparams_test, patient_ids, patient_ids_test=PATIENT_IDS_TEST):
     ''' Collect all information for input and output tensors '''
     # TRAIN AND VAL DATA
     data_patients = {}
-    for pat_name in PATIENT_IDS:
+    for pat_name in patient_ids:
         initial_state = get_init_state(pat_name, vparams)
         cho_date = get_meal_time(pat_name=pat_name)
         gb_meal, insulin, cho = get_gb_insulin_cho_at(pat_name, cho_date)
@@ -106,7 +105,7 @@ def create_dataset(vparams, vparams_test):
 
     scaler = StandardScaler()
 
-    train_ids = PATIENT_IDS[0:train_size]
+    train_ids = patient_ids[0:train_size]
     selected_arrays = []
     for pat_id in train_ids:
         selected_arrays.append(data_patients[pat_id])
@@ -119,7 +118,7 @@ def create_dataset(vparams, vparams_test):
     # train[:, -12] CHO
     X_train_normalized_reshaped = np.concatenate([X_train_normalized_reshaped, train[:, -13:]], axis=1)
 
-    val_ids = PATIENT_IDS[train_size:]
+    val_ids = patient_ids[train_size:]
     selected_arrays = []
     for pat_id in val_ids:
         selected_arrays.append(data_patients[pat_id])
@@ -133,7 +132,7 @@ def create_dataset(vparams, vparams_test):
 
     # TEST DATA
     data_patients = {}
-    for pat_name in PATIENT_IDS_TEST:
+    for pat_name in patient_ids_test:
         initial_state = get_init_state(pat_name, vparams_test)
         cho_date = get_meal_time(pat_name=pat_name, test=True)
         gb_meal, insulin, cho = get_gb_insulin_cho_at(pat_name, cho_date, test=True)
@@ -147,7 +146,7 @@ def create_dataset(vparams, vparams_test):
         data_patients[pat_name] = np.array([*initial_state, insulin, cho, insulin, cho, *temp_gb, gb_meal])
 
     selected_arrays = []
-    for pat_id in PATIENT_IDS_TEST:
+    for pat_id in patient_ids_test:
         selected_arrays.append(data_patients[pat_id])
     test = np.stack(selected_arrays, axis=0)
     # Fit the scaler only to the first part of the data (excluding the two last columns)
@@ -159,7 +158,7 @@ def create_dataset(vparams, vparams_test):
 
     return  torch.from_numpy(X_train_normalized_reshaped).to(torch.float32), train_ids, \
             torch.from_numpy(X_val_normalized_reshaped).to(torch.float32), val_ids, \
-            torch.from_numpy(X_test_normalized_reshaped).to(torch.float32), PATIENT_IDS_TEST
+            torch.from_numpy(X_test_normalized_reshaped).to(torch.float32), patient_ids_test
 
 def setup_loaders(args):
     AVAIL_GPUS = min(1, torch.cuda.device_count())
@@ -167,14 +166,21 @@ def setup_loaders(args):
     torch.manual_seed(args.seed)
     random.seed(args.seed)
 
-    requested_workers = int(getattr(args, "num_workers", 0) or 0)
-    if requested_workers > 0:
-        num_workers = min(requested_workers, AVAIL_CPUS)
+    requested_workers = getattr(args, "num_workers", None)
+    if requested_workers is not None:
+        num_workers = max(0, min(int(requested_workers), AVAIL_CPUS))
     else:
         num_workers = (4 * AVAIL_GPUS) if (AVAIL_GPUS > 0) else min(AVAIL_CPUS, 8)
     batch_size = 2 # DUAL INPUT!
 
-    train_data, train_ids, val_data, val_ids, test_data, test_ids = create_dataset(vparams=vparams, vparams_test=vparams_test)
+    patient_ids = list(PATIENT_IDS)
+    random.Random(args.seed).shuffle(patient_ids)
+    train_data, train_ids, val_data, val_ids, test_data, test_ids = create_dataset(
+        vparams=vparams,
+        vparams_test=vparams_test,
+        patient_ids=patient_ids,
+        patient_ids_test=PATIENT_IDS_TEST,
+    )
 
     # Aumentar size para dataset completo
     train_loader = DataLoader(
